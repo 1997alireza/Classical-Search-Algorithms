@@ -1,7 +1,7 @@
 package problemGraph.problems;
 import problemGraph.Action;
 import problemGraph.State;
-import problemGraph.Problem;
+import problemGraph.problems.Problem;
 
 import java.util.ArrayList;
 

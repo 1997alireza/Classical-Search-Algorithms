@@ -1,4 +1,4 @@
-import problemGraph.Problem;
+import problemGraph.problems.Problem;
 import problemGraph.algorithms.BFS;
 import problemGraph.algorithms.SearchAlgorithm;
 import problemGraph.problems.Problem1;

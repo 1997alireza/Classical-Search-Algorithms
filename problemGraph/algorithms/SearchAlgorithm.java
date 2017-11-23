@@ -1,6 +1,6 @@
 package problemGraph.algorithms;
 import problemGraph.State;
-import problemGraph.Problem;
+import problemGraph.problems.Problem;
 
 import java.util.ArrayList;
 import java.util.HashSet;

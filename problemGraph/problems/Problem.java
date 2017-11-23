@@ -1,4 +1,6 @@
-package problemGraph;
+package problemGraph.problems;
+
+import problemGraph.State;
 
 public abstract class Problem{
     public Problem(){
