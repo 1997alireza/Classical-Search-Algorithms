@@ -4,15 +4,28 @@ import problemGraph.problems.Problem;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-
 public abstract class SearchAlgorithm {
     private State finalState;
     protected int maxMemoryUsage; // max number of kept states
+    protected boolean isGraphSearch;
     SearchAlgorithm() {
         visitedStates = new HashSet<>();
         expandedStates = new HashSet<>();
+        isGraphSearch = true;
     }
 
+    public SearchAlgorithm graphSearch(){ // it's default
+        isGraphSearch = true;
+        return this;
+    }
+    public SearchAlgorithm treeSearch(){
+        isGraphSearch = false;
+        return this;
+    }
+
+    protected boolean cantBeAdded(State s, ArrayList<State> openList){
+        return (isGraphSearch && expandedStates.contains(s)) || openList.contains(s);
+    }
     /**
      *
      * @return finalState, if it's null so we can't access to a final state

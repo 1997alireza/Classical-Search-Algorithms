@@ -17,7 +17,7 @@ public class ID_DFS extends SearchAlgorithm {
             return start;
         }
         ArrayList<State> openList /*f*/ = new ArrayList<>();
-        State LGSLastRound = null, LGSCurrentRound = null; // LGS = Last Generated State
+        State LGSLastRound = null, LGSCurrentRound; // LGS = Last Generated State
         for(int depthLimit = 0; ; depthLimit++) {
             openList.clear();
             openList.add(start);
@@ -29,7 +29,7 @@ public class ID_DFS extends SearchAlgorithm {
                 expandedStates.add(s);
                 for (Action a : s.actionList()) {
                     State ns = a.nextState;
-                    if (expandedStates.contains(ns) || openList.contains(ns))
+                    if (cantBeAdded(ns, openList))
                         continue;
                     if (p.isFinal(ns)) {
                         return ns;

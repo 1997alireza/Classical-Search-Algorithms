@@ -30,7 +30,7 @@ public class DLS extends SearchAlgorithm {
             expandedStates.add(s);
             for(Action a : s.actionList()){
                 State ns = a.nextState;
-                if(expandedStates.contains(ns) || openList.contains(ns))
+                if(cantBeAdded(ns, openList))
                     continue;
                 if(p.isFinal(ns)){
                     return ns;
