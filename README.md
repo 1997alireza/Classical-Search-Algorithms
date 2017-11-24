@@ -7,4 +7,5 @@
   - Iterative deepening DFS
 - Uniform cost search
 - Bidirectional search
+- A*
 
