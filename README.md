@@ -1,2 +1,11 @@
 # Classical Search Algorithms
-Implementation of some classical search algorithms and solve some problems
+#### Algorithms
+- BFS (Breadth first search)
+- DFS (Depth first search)
+  - Unlimited DFS
+  - DLS (Depth limited search)
+  - Iterative deepening DFS
+- Uniform cost search
+- Bidirectional search
+- A*
+
