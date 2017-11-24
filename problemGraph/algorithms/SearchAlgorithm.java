@@ -6,10 +6,9 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 public abstract class SearchAlgorithm {
-    protected Problem p;
-    protected State finalState;
-    public int maxMemoryUsage; // max number of kept states
-    public SearchAlgorithm() {
+    private State finalState;
+    protected int maxMemoryUsage; // max number of kept states
+    SearchAlgorithm() {
         visitedStates = new HashSet<>();
         expandedStates = new HashSet<>();
     }
@@ -18,17 +17,17 @@ public abstract class SearchAlgorithm {
      *
      * @return finalState, if it's null so we can't access to a final state
      */
-    protected State searchAFinal(Problem p){
-        this.p = p;
+    protected abstract State searchAFinal(Problem p);
+    public void run(Problem p){
         maxMemoryUsage = 0;
         visitedStates.clear();
         expandedStates.clear();
-        return null;
-    }
-    public void run(Problem p){
         finalState = searchAFinal(p);
+        if(finalState == null){
+            System.err.println("Can't access to a final! :(");
+        }
     }
-    public HashSet<State> visitedStates, expandedStates/*closed list (e)*/;
+    protected HashSet<State> visitedStates, expandedStates/*closed list (e)*/;
     public ArrayList<String> getBestPath(){
         if(finalState == null)
             return null;
@@ -47,5 +46,14 @@ public abstract class SearchAlgorithm {
     }
     public State getFinal(){
         return finalState;
+    }
+    public int getMaxMemoryUsage(){
+        return maxMemoryUsage;
+    }
+    public int visitedStatesNumber(){
+        return visitedStates.size();
+    }
+    public int expandedStatesNumber(){
+        return expandedStates.size();
     }
 }
