@@ -76,5 +76,16 @@ public class Problem1 extends Problem {
         public String toString() {
             return "Pitcher 3: " + pitcher3 + ", Pitcher 4: " + pitcher4;
         }
+
+        @Override
+        public boolean equals(State s) {
+            if (s instanceof PState){
+                PState ps = (PState)s;
+                return pitcher3 == ps.pitcher3 && pitcher4 == ps.pitcher4;
+            }
+            System.err.println("Is not of my type!");
+            System.exit(1);
+            return false;
+        }
     }
 }

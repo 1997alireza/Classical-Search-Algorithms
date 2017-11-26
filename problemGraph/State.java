@@ -18,4 +18,5 @@ public abstract class State {
     }
     public abstract ArrayList<Action> actionList();
     public abstract String toString();
+    public abstract boolean equals(State s);
 }

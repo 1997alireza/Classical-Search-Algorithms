@@ -24,7 +24,17 @@ public abstract class SearchAlgorithm {
     }
 
     protected boolean cantBeAdded(State s, ArrayList<State> openList){
-        return (isGraphSearch && expandedStates.contains(s)) || openList.contains(s);
+        for(State aState: openList) {
+            if (s.equals(aState))
+                return true;
+        }
+        if(isGraphSearch){
+            for(State aState : expandedStates) {
+                if (s.equals(aState))
+                    return true;
+            }
+        }
+        return false;
     }
     /**
      *
