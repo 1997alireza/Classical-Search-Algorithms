@@ -1,4 +1,4 @@
-package problemGraph.algorithms;
+package algorithms;
 
 import problemGraph.Action;
 import problemGraph.State;
@@ -6,14 +6,7 @@ import problemGraph.problems.Problem;
 
 import java.util.ArrayList;
 
-/**
- * DLS: Depth limited search ( a type of DFS)
- */
-public class DLS extends SearchAlgorithm {
-    private int depthLimit;
-    public DLS(int depthLimit){
-        this.depthLimit = depthLimit;
-    }
+public class DFS extends SearchAlgorithm {
     @Override
     protected State searchAFinal(Problem p) {
         State start = p.getInitialState();
@@ -27,7 +20,6 @@ public class DLS extends SearchAlgorithm {
         while(!openList.isEmpty()){
             maxMemoryUsage‌ = Math.max(maxMemoryUsage‌, openList.size() + expandedStates.size());
             State s = openList.remove(0);
-            if(s.height >= depthLimit) continue;
             expandedStates.add(s);
             for(Action a : s.actionList()){
                 State ns = a.nextState;

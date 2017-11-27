@@ -1,12 +1,19 @@
-package problemGraph.algorithms;
+package algorithms;
 
 import problemGraph.Action;
-import problemGraph.problems.Problem;
 import problemGraph.State;
+import problemGraph.problems.Problem;
 
 import java.util.ArrayList;
 
-public class BFS extends SearchAlgorithm {
+/**
+ * DLS: Depth limited search ( a type of DFS)
+ */
+public class DLS extends SearchAlgorithm {
+    private int depthLimit;
+    public DLS(int depthLimit){
+        this.depthLimit = depthLimit;
+    }
     @Override
     protected State searchAFinal(Problem p) {
         State start = p.getInitialState();
@@ -20,6 +27,7 @@ public class BFS extends SearchAlgorithm {
         while(!openList.isEmpty()){
             maxMemoryUsage‌ = Math.max(maxMemoryUsage‌, openList.size() + expandedStates.size());
             State s = openList.remove(0);
+            if(s.height >= depthLimit) continue;
             expandedStates.add(s);
             for(Action a : s.actionList()){
                 State ns = a.nextState;
@@ -29,7 +37,7 @@ public class BFS extends SearchAlgorithm {
                 if(p.isFinal(ns)){
                     return ns;
                 }
-                openList.add(ns);
+                openList.add(0, ns);
             }
         }
         return null;

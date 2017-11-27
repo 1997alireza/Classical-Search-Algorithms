@@ -1,12 +1,12 @@
-package problemGraph.algorithms;
+package algorithms;
 
 import problemGraph.Action;
-import problemGraph.State;
 import problemGraph.problems.Problem;
+import problemGraph.State;
 
 import java.util.ArrayList;
 
-public class DFS extends SearchAlgorithm {
+public class BFS extends SearchAlgorithm {
     @Override
     protected State searchAFinal(Problem p) {
         State start = p.getInitialState();
@@ -29,7 +29,7 @@ public class DFS extends SearchAlgorithm {
                 if(p.isFinal(ns)){
                     return ns;
                 }
-                openList.add(0, ns);
+                openList.add(ns);
             }
         }
         return null;

@@ -1,4 +1,4 @@
-package problemGraph.algorithms;
+package algorithms;
 import problemGraph.State;
 import problemGraph.problems.Problem;
 
