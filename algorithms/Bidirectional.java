@@ -38,9 +38,9 @@ public class Bidirectional extends SearchAlgorithm{
                     ss.expandedStates.add(s);
                     for(Action a : (i == 0)? s.actionList() : s.actionInverseList()){
                         State ns = a.nextState;
-                        visitedStates.add(ns);
                         if(ss.cantBeAdded(ns))
                             continue;
+                        visitedStates.add(ns);
                         ss.openList.add(ns);
                     }
                 }
@@ -99,24 +99,28 @@ public class Bidirectional extends SearchAlgorithm{
         return null;
     }
 
-    private State connectPaths(State fromInit, State fromFinal){
+    private State connectPaths(State fromInit, State fromFinal) {
         ArrayList<State> FPathStates = new ArrayList<>();
         State stateFPath = fromFinal;
-        while(stateFPath != null){
+        while (stateFPath != null) {
             FPathStates.add(stateFPath);
             stateFPath = stateFPath.parent;
         }
-        for(int i = FPathStates.size()-1; i > 1; i--){
-            State fsInFPath= FPathStates.get(i);
-            fsInFPath.parent = FPathStates.get(i-1);
-            fsInFPath.actionStr = FPathStates.get(i-1).actionStr;
+        if (FPathStates.size() == 1) {
+            return fromInit;
+        }
+        for (int i = FPathStates.size() - 1; i > 1; i--) {
+            State fsInFPath = FPathStates.get(i);
+            fsInFPath.parent = FPathStates.get(i - 1);
+            fsInFPath.actionStr = FPathStates.get(i - 1).actionStr;
         }
         FPathStates.get(1).parent = fromInit;
         FPathStates.get(1).actionStr = FPathStates.get(0).actionStr;
 
-        State finalState = FPathStates.get(FPathStates.size()-1);
+
+        State finalState = FPathStates.get(FPathStates.size() - 1);
         finalState.totalCost = fromInit.totalCost + fromFinal.totalCost;
-        return FPathStates.get(FPathStates.size()-1);
+        return FPathStates.get(FPathStates.size() - 1);
     }
 
     private class SingleSearch{

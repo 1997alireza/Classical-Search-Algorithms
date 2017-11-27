@@ -30,9 +30,9 @@ public class ID_DFS extends SearchAlgorithm {
                 expandedStates.add(s);
                 for (Action a : s.actionList()) {
                     State ns = a.nextState;
-                    visitedStates.add(ns);
                     if (cantBeAdded(ns, openList))
                         continue;
+                    visitedStates.add(ns);
                     if (p.isFinal(ns)) {
                         return ns;
                     }

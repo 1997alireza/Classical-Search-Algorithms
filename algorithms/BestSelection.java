@@ -27,9 +27,9 @@ public abstract class BestSelection extends SearchAlgorithm {
             expandedStates.add(s);
             for(Action a : s.actionList()){
                 State ns = a.nextState;
-                visitedStates.add(ns);
                 if(cantBeAdded(ns, openList))
                     continue;
+                visitedStates.add(ns);
                 openList.add(ns);
             }
         }
@@ -40,8 +40,9 @@ public abstract class BestSelection extends SearchAlgorithm {
         int minLoad = Integer.MAX_VALUE;
         State bestState = null;
         for(State s: openList){
-            if(s.totalCost < minLoad){
-                minLoad = getNodeLoad(s, p);
+            int sDotLoad = getNodeLoad(s, p);
+            if(sDotLoad < minLoad){
+                minLoad = sDotLoad;
                 bestState = s;
             }
         }

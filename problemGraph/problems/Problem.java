@@ -12,5 +12,9 @@ public abstract class Problem{
         return 0;
     }
 
+    /**
+     *
+     * @return if it's not a bidirectional graph return null
+     */
     public abstract ArrayList<State> getFinalStates();
 }

@@ -30,7 +30,7 @@ public class Problem1 extends Problem {
 
 
     private class PState extends State {
-        public int pitcher3, pitcher4;
+        int pitcher3, pitcher4;
         public PState(int totalCost) {
             super(totalCost);
             pitcher3 = 0;
