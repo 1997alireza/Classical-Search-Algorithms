@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 public abstract class SearchAlgorithm {
     private State finalState;
-    protected int maxMemoryUsage; // max number of kept states
+    protected int maxMemoryUsage‌; // max number of kept states in open list and close list
     protected boolean isGraphSearch;
     SearchAlgorithm() {
         visitedStates = new HashSet<>();
@@ -42,7 +42,7 @@ public abstract class SearchAlgorithm {
      */
     protected abstract State searchAFinal(Problem p);
     public void run(Problem p){
-        maxMemoryUsage = 0;
+        maxMemoryUsage‌ = 0;
         visitedStates.clear();
         expandedStates.clear();
         finalState = searchAFinal(p);
@@ -70,8 +70,8 @@ public abstract class SearchAlgorithm {
     public State getFinal(){
         return finalState;
     }
-    public int getMaxMemoryUsage(){
-        return maxMemoryUsage;
+    public int getMaxMemoryUsage‌(){
+        return maxMemoryUsage‌;
     }
     public int visitedStatesNumber(){
         return visitedStates.size();

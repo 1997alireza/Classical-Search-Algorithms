@@ -15,9 +15,10 @@ public abstract class BestSelection extends SearchAlgorithm {
         }
         ArrayList<State> openList /*f*/ = new ArrayList<>();
         openList.add(start);
+        visitedStates.add(start);
 
         while(!openList.isEmpty()){
-            maxMemoryUsage = Math.max(maxMemoryUsage, openList.size());
+            maxMemoryUsage‌ = Math.max(maxMemoryUsage‌, openList.size() + expandedStates.size());
             State s = getBestState(openList, p);
             openList.remove(s);
             if(p.isFinal(s)){
@@ -26,6 +27,7 @@ public abstract class BestSelection extends SearchAlgorithm {
             expandedStates.add(s);
             for(Action a : s.actionList()){
                 State ns = a.nextState;
+                visitedStates.add(ns);
                 if(cantBeAdded(ns, openList))
                     continue;
                 openList.add(ns);

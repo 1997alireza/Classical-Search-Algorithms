@@ -19,8 +19,8 @@ public class Bidirectional extends SearchAlgorithm{
             {
                 int memUsage = 0;
                 for (SingleSearch ss : singleSearches)
-                    memUsage += ss.openList.size();
-                maxMemoryUsage = Math.max(maxMemoryUsage, memUsage);
+                    memUsage += ss.openList.size() + ss.expandedStates.size();
+                maxMemoryUsage‌ = Math.max(maxMemoryUsage‌, memUsage);
             }
             State commonState = getCommonState();
             if(commonState != null) {
@@ -34,9 +34,11 @@ public class Bidirectional extends SearchAlgorithm{
                 }
                 else{
                     State s = ss.openList.remove(0);
+                    expandedStates.add(s);
                     ss.expandedStates.add(s);
                     for(Action a : (i == 0)? s.actionList() : s.actionInverseList()){
                         State ns = a.nextState;
+                        visitedStates.add(ns);
                         if(ss.cantBeAdded(ns))
                             continue;
                         ss.openList.add(ns);
@@ -112,6 +114,8 @@ public class Bidirectional extends SearchAlgorithm{
         FPathStates.get(1).parent = fromInit;
         FPathStates.get(1).actionStr = FPathStates.get(0).actionStr;
 
+        State finalState = FPathStates.get(FPathStates.size()-1);
+        finalState.totalCost = fromInit.totalCost + fromFinal.totalCost;
         return FPathStates.get(FPathStates.size()-1);
     }
 
@@ -121,6 +125,7 @@ public class Bidirectional extends SearchAlgorithm{
             openList = new ArrayList<>();
             expandedStates = new ArrayList<>();
             openList.add(init);
+            visitedStates.add(init);
         }
         boolean cantBeAdded(State s){
             for(State aState: openList) {

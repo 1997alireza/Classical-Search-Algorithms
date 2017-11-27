@@ -22,14 +22,16 @@ public class DLS extends SearchAlgorithm {
         }
         ArrayList<State> openList /*f*/ = new ArrayList<>();
         openList.add(start);
+        visitedStates.add(start);
 
         while(!openList.isEmpty()){
-            maxMemoryUsage = Math.max(maxMemoryUsage, openList.size());
+            maxMemoryUsage‌ = Math.max(maxMemoryUsage‌, openList.size() + expandedStates.size());
             State s = openList.remove(0);
             if(s.height >= depthLimit) continue;
             expandedStates.add(s);
             for(Action a : s.actionList()){
                 State ns = a.nextState;
+                visitedStates.add(ns);
                 if(cantBeAdded(ns, openList))
                     continue;
                 if(p.isFinal(ns)){
