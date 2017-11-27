@@ -13,9 +13,6 @@ public class Bidirectional extends SearchAlgorithm{
     protected State searchAFinal(Problem p) {
         singleSearches = new ArrayList<>();
         singleSearches.add(new SingleSearch(p.getInitialState())); // singleSearch[0] is for start state
-        /*for(State fs : p.getFinalStates()){
-            singleSearches.add(new SingleSearch(fs));
-        }*/ //TODO check
         singleSearches.addAll(p.getFinalStates().stream().map(SingleSearch::new).collect(Collectors.toList()));
 
         while(!isFinished()){
@@ -26,8 +23,9 @@ public class Bidirectional extends SearchAlgorithm{
                 maxMemoryUsage = Math.max(maxMemoryUsage, memUsage);
             }
             State commonState = getCommonState();
-            if(commonState != null)
+            if(commonState != null) {
                 return commonState;
+            }
             for(int i = 0; i < singleSearches.size(); i++){
                 SingleSearch ss = singleSearches.get(i);
                 if(ss.openList.isEmpty()){
@@ -59,33 +57,62 @@ public class Bidirectional extends SearchAlgorithm{
         return true;
     }
 
+    /**
+     *
+     * @return common state between initial state DFS and a final state DFS that has all the path from initial to a final
+     */
     private State getCommonState(){
         for(State s : singleSearches.get(0).openList){
             State commonState = getCommonState(s);
-            if(commonState != null)
-                return commonState;
+            if(commonState != null) {
+                return connectPaths(s, commonState);
+            }
         }
         for(State s : singleSearches.get(0).expandedStates){
             State commonState = getCommonState(s);
             if(commonState != null)
-                return commonState;
+                return connectPaths(s, commonState);
         }
         return null;
     }
+
+    /**
+     *
+     * @param s in initial state path
+     * @return common state with s that is in a final state path
+     */
     private State getCommonState(State s){
         for(int i = 1; i < singleSearches.size(); i++){
             for(State fs : singleSearches.get(i).openList){
                 if(s.equals(fs)){
-                    return s;
+                    return fs;
                 }
             }
             for(State fs : singleSearches.get(i).expandedStates){
                 if(s.equals(fs)){
-                    return s;
+                    return fs;
                 }
             }
         }
         return null;
+    }
+
+    private State connectPaths(State fromInit, State fromFinal){
+        ArrayList<State> FPathStates = new ArrayList<>();
+        State stateFPath = fromFinal;
+        while(stateFPath != null){
+            FPathStates.add(stateFPath);
+            stateFPath = stateFPath.parent;
+        }
+        for(int i = FPathStates.size()-1; i > 1; i--){
+            State fsInFPath= FPathStates.get(i);
+            fsInFPath.parent = FPathStates.get(i-1);
+            fsInFPath.actionStr = FPathStates.get(i-1).actionStr;
+        }
+        FPathStates.get(1).parent = fromInit;
+        FPathStates.get(1).actionStr = FPathStates.get(0).actionStr;
+
+        return FPathStates.get(FPathStates.size()-1);
     }
 
     private class SingleSearch{
