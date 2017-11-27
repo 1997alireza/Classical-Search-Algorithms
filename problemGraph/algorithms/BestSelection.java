@@ -46,5 +46,11 @@ public abstract class BestSelection extends SearchAlgorithm {
         return bestState;
     }
 
+    /**
+     *
+     * @param s state
+     * @param p problem, to have access to heuristic cost function
+     * @return f function
+     */
     protected abstract int getNodeLoad(State s, Problem p);
 }

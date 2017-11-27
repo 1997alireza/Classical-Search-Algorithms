@@ -19,4 +19,14 @@ public abstract class State {
     public abstract ArrayList<Action> actionList();
     public abstract String toString();
     public abstract boolean equals(State s);
+
+    /**
+     *
+     * @return a array list of actions that we can do those to return back to the parent state, if it's not possible return null
+     */
+    public ArrayList<Action> actionInverseList(){
+        System.err.println("It's not a bidirectional graph");
+        System.exit(1);
+        return null;
+    }
 }
